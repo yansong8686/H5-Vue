@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>v-model示例1</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+  <body>
+    <div id="app">
+      <!-- <textarea v-model="text" placeholder="请输入..."></textarea> -->
+      <!-- @input，即v-on:input,用来监听input的输入值变化事件 -->
+      <input type="text" @input="handleInput" placeholder="请输入...">
+      <p>输入的内容是：</p>
+      <p style="white-space:pre;">{{message}}</p>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+      var app = new Vue({
+        el:'#app',
+        data:{
+          // text:''
+          message:''
+        },
+        methods:{
+          handleInput:function(e){
+            this.message = e.target.value;
+          }
+        }
+      })
+    </script>
+
+  </body>
+</html>
