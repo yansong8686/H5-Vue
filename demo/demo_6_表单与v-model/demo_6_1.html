@@ -3,15 +3,52 @@
   <head>
     <meta charset="utf-8">
     <title>v-model示例1</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <style>
+    /* 注意：此处css需要放到 v-cloak使用之前才生效 */
+    [v-cloak]{
+        display: none;
+    }
+    </style>
   </head>
   <body>
-    <div id="app">
+    <div id="app" v-cloak>
       <!-- <textarea v-model="text" placeholder="请输入..."></textarea> -->
       <!-- @input，即v-on:input,用来监听input的输入值变化事件 -->
       <input type="text" @input="handleInput" placeholder="请输入...">
       <p>输入的内容是：</p>
       <p style="white-space:pre;">{{message}}</p>
+      <input type="radio" :checked="picked1">
+      <label>单选按钮</label>
+      <br>
+      <input type="radio" v-model="picked" value="html" id="html">
+      <label for="html">HTML</label>
+      <input type="radio" v-model="picked" value="js" id="js">
+      <label for="js">JavaScript</label>
+      <input type="radio" v-model="picked" value="css" id="css">
+      <label for="css">CSS</label>
+      <br>
+      <p>选择的项是：{{picked}}</p>
+      <input type="checkbox" v-model="checked1" id="checked1">
+      <label for="checked1">选择状态：{{checked1}}</label>
+      <br>
+      <br>
+      <input type="checkbox" v-model="checked" id="html-check" value="html-check">
+      <label for="html-check">HTML</label>
+      <br>
+      <input type="checkbox" v-model="checked" id="js-check" value="js-check">
+      <label for="js-check">JavaScript</label>
+      <br>
+      <input type="checkbox" v-model="checked" id="css-check" value="css-check">
+      <label for="css-check">CSS</label>
+      <p>选择的项是：{{checked}}</p>
+      <br>
+      <select v-model="selected" multiple>
+        <!-- <option>html</option>
+        <option value="js">JavaScript</option>
+        <option>css</option> -->
+        <option v-for="option in options" :value="option.value">{{option.text}}</option>
+      </select>
+      <p>选择的项是：{{selected}}</p>
     </div>
     <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     <script>
@@ -19,7 +56,17 @@
         el:'#app',
         data:{
           // text:''
-          message:''
+          message:'',
+          picked1:false,
+          picked:'js',
+          checked1:false,
+          checked:['html-check','css-check'],
+          selected:'html',
+          options:[
+            {text:"HTML",value:"html"},
+            {text:"JavaScript",value:"js"},
+            {text:"CSS",value:"css"}
+          ]
         },
         methods:{
           handleInput:function(e){
@@ -30,4 +77,5 @@
     </script>
 
   </body>
+
 </html>

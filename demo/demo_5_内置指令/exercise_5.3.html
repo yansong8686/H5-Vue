@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>v-model示例1</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <!-- <template v-for="book in filterBooks"> -->
+        <!-- <template v-for="book in sortedBooks"> -->
+        <template v-for="book in books">
+          <li>书名：{{book.name}}</li>
+          <li>作者：{{book.author}}</li>
+        </template>
+      </ul>
+    </div>
+    <div id = "app1">
+      <template v-if="type === 'name'">
+        <label>用户名：</label>
+        <input placeholder="输入用户名" key = "name-input">
+      </template>
+      <template v-else>
+        <label>邮箱：</label>
+        <input placeholder="输入邮箱" key = "mail-input">
+      </template>
+      <button @click="handleToggleClick" type="button" name="button">切换输入类型</button>
+    </div>
+      <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+      var app = new Vue({
+        el:'#app',
+        data:{
+          books:[
+            {name:'《Vue.js实战》',author:'XX'},
+            {name:'《Vue.js实战1》',author:'XX2'},
+            {name:'《Vue.js实战2》',author:'XX2'},
+            {name:'《JavaScript高级程序设计》',author:'XX2'}
+          ]
+        }//,
+        // computed: {
+        //   filterBooks: function(){
+        //     return this.books.filter(function(book){
+        //       return book.name.match(/Vue/);
+        //     });
+        //   },
+        //   sortedBooks: function(){
+        //     return this.books.sort(function(a,b){
+        //       return a.name.length < b.name.length;
+        //     })
+        //   }
+        // }
+      });
+      // app.books = app.books.filter(
+      //   function(item){
+      //     return item.name.match(/JavaSc/)
+      //   }
+      // );
+      // app.books[4] = {name:"a",author:"b"};//无效
+      Vue.set(app.books,4, {name:"a",author:"b"});//有效
+      app.books.splice(5,1,{name:"aa",author:"bb"});//有效
+      // app.books.length = 1;//有效
+      app.books.splice(1);//有效
+
+      var app1 = new Vue({
+        el:'#app1',
+        data:{
+          type:'name'
+        },
+        methods:{
+          handleToggleClick:function(){
+            this.type = this.type === "name" ? "mail" :"name";
+          }
+        }
+      })
+    </script>
+
+  </body>
+</html>
